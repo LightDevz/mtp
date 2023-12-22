@@ -121,13 +121,13 @@ do_configure_os() {
         ubuntu-19.*|ubuntu-20.*|ubuntu-21.*|ubuntu-22.*|debian-10|debian-11)
             info "Installing required APT packages"
             sudo apt update -y
-            sudo apt install erlang-nox erlang-dev make sed diffutils tar
+            sudo apt install erlang-nox erlang-dev make sed diffutils tar -y
             ;;
         debian-9|debian-8|ubuntu-18.*)
             info "Installing extra repositories"
             curl -L https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb -o erlang-solutions_1.0_all.deb
             sudo dpkg -i erlang-solutions_1.0_all.deb
-            sudo apt update
+            sudo apt update -y
             info "Installing required APT packages"
             sudo apt install erlang-nox erlang-dev make sed diffutils tar -y
             ;;
