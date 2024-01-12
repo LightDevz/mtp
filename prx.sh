@@ -600,51 +600,51 @@ echo "$(tput setaf 3)Warning!$(tput sgr 0) Do not use special characters like \"
 # 		exit 1
 # 		;;
 # 	esac
-	SECRET_END_ARY+=("$SECRET")
-	USERNAME_END_ARY+=("$USERNAME")
-	#Now add them to secrets
-	SECRETTEMP='"'
-	SECRETTEMP+="$USERNAME"
-	SECRETTEMP+='":"'
-	SECRETTEMP+="$SECRET"
-	SECRETTEMP+='"'
-	SECRETS+="$SECRETTEMP , "
-	#Setup limiter
-	OPTION="n"
-	OPTION="$(echo $OPTION | tr '[A-Z]' '[a-z]')"
-	case $OPTION in
-	'y')
-		read -r -p "How many users do you want to connect to this secret? " OPTION
-		if ! [[ $OPTION =~ $regex ]]; then
-			echo "$(tput setaf 1)Error:$(tput sgr 0) The input is not a valid number"
-			exit 1
-		fi
-		#Multiply number of connections by 8. You can manualy change this. Read more: https://github.com/alexbers/mtprotoproxy/blob/master/mtprotoproxy.py#L202
-		OPTION=$((OPTION * 8))
-		limits+=(["$USERNAME"]="$OPTION")
-		;;
-	'n') ;;
+# 	SECRET_END_ARY+=("$SECRET")
+# 	USERNAME_END_ARY+=("$USERNAME")
+# 	#Now add them to secrets
+# 	SECRETTEMP='"'
+# 	SECRETTEMP+="$USERNAME"
+# 	SECRETTEMP+='":"'
+# 	SECRETTEMP+="$SECRET"
+# 	SECRETTEMP+='"'
+# 	SECRETS+="$SECRETTEMP , "
+# 	#Setup limiter
+# 	OPTION="n"
+# 	OPTION="$(echo $OPTION | tr '[A-Z]' '[a-z]')"
+# 	case $OPTION in
+# 	'y')
+# 		read -r -p "How many users do you want to connect to this secret? " OPTION
+# 		if ! [[ $OPTION =~ $regex ]]; then
+# 			echo "$(tput setaf 1)Error:$(tput sgr 0) The input is not a valid number"
+# 			exit 1
+# 		fi
+# 		#Multiply number of connections by 8. You can manualy change this. Read more: https://github.com/alexbers/mtprotoproxy/blob/master/mtprotoproxy.py#L202
+# 		OPTION=$((OPTION * 8))
+# 		limits+=(["$USERNAME"]="$OPTION")
+# 		;;
+# 	'n') ;;
 
-	*)
-		echo "$(tput setaf 1)Invalid option$(tput sgr 0)"
-		exit 1
-		;;
-	esac
-	OPTION="n"
-	OPTION="$(echo $OPTION | tr '[A-Z]' '[a-z]')"
-	case $OPTION in
-	'y') ;;
+# 	*)
+# 		echo "$(tput setaf 1)Invalid option$(tput sgr 0)"
+# 		exit 1
+# 		;;
+# 	esac
+# 	OPTION="n"
+# 	OPTION="$(echo $OPTION | tr '[A-Z]' '[a-z]')"
+# 	case $OPTION in
+# 	'y') ;;
 
-	'n')
-		break
-		;;
-	*)
-		echo "$(tput setaf 1)Invalid option$(tput sgr 0)"
-		exit 1
-		;;
-	esac
-	COUNTER=$((COUNTER + 1))
-done
+# 	'n')
+# 		break
+# 		;;
+# 	*)
+# 		echo "$(tput setaf 1)Invalid option$(tput sgr 0)"
+# 		exit 1
+# 		;;
+# 	esac
+# 	COUNTER=$((COUNTER + 1))
+# done
 SECRETS=${SECRETS::${#SECRETS}-2}
 if [ ${#limits[@]} -gt 0 ]; then
 	GenerateConnectionLimiterConfig
