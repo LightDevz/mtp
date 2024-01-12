@@ -570,7 +570,7 @@ while true; do
             esac
             shift
         done
-	echo SECRET
+	echo $SECRET
 		#Validate length
 		SECRET="$(echo $SECRET | tr '[A-Z]' '[a-z]')"
 		if ! [[ $SECRET =~ ^[0-9a-f]{32}$ ]]; then
