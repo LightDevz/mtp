@@ -254,7 +254,13 @@ if [ -d "/opt/mtprotoproxy" ]; then
 			case $OPTION in
 			1)
 				echo "Enter a 32 character string filled by 0-9 and a-f: "
-				read -r SECRET
+				while [[ "$#" -gt 0 ]]; do
+					case $1 in
+						--s) SECRET="$2"; shift ;;
+					esac
+					shift
+				done
+				echo $SECRET
 				#Validate secret
 				SECRET="$(echo $SECRET | tr '[A-Z]' '[a-z]')"
 				if ! [[ $SECRET =~ ^[0-9a-f]{32}$ ]]; then
@@ -573,6 +579,7 @@ while true; do
             esac
             shift
         done
+		echo $SECRET
 		#Validate length
 		SECRET="$(echo $SECRET | tr '[A-Z]' '[a-z]')"
 		if ! [[ $SECRET =~ ^[0-9a-f]{32}$ ]]; then
