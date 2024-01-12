@@ -520,6 +520,7 @@ fi
 #Variables
 SECRETS=""
 SECRET=""
+PORTSS=""
 SECRET_END_ARY=()
 USERNAME_END_ARY=()
 TAG=""
@@ -534,10 +535,12 @@ echo ""
 echo ""
 while [[ "$#" -gt 0 ]]; do
     case $1 in
-        --p) PORT="$2"; shift ;;
+        --p) PORTSS="$2"; shift ;;
     esac
     shift
 done
+PORT=$PORTSS
+echo $PORT
 if [[ $PORT -eq -1 ]]; then
 	GetRandomPort
 	echo "I've selected $PORT as your port."
@@ -570,7 +573,6 @@ while true; do
             esac
             shift
         done
-	echo $SECRET
 		#Validate length
 		SECRET="$(echo $SECRET | tr '[A-Z]' '[a-z]')"
 		if ! [[ $SECRET =~ ^[0-9a-f]{32}$ ]]; then
