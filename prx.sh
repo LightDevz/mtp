@@ -542,11 +542,15 @@ echo ""
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --p) PORTSS="$2"; shift ;;
+        --s) SECRET="$2"; shift ;;
+        --tls) TLS_DOMAIN="$2"; shift ;;
     esac
     shift
 done
 PORT=$PORTSS
 echo $PORT
+echo $SECRET
+echo $TLS_DOMAIN
 if [[ $PORT -eq -1 ]]; then
 	GetRandomPort
 	echo "I've selected $PORT as your port."
@@ -563,39 +567,39 @@ fi
 #Now the username and secrets
 declare -A limits
 echo "$(tput setaf 3)Warning!$(tput sgr 0) Do not use special characters like \" , ' , $ or... for username"
-while true; do
-	echo "Now tell me a user name. Usernames are used to name secrets: "
-	USERNAME="MTSecret$COUNTER"
-	echo "Do you want to set secret manually or shall I create a random secret?"
-	echo "   1) Manually enter a secret"
-	echo "   2) Create a random secret"
-	OPTION="1"
-	case $OPTION in
-	1)
-		echo "S string filled by 0-9 and a-f(hexadecimal): "
-		while [[ "$#" -gt 0 ]]; do
-            case $1 in
-                --s) SECRET="$2"; shift ;;
-            esac
-            shift
-        done
-		echo $SECRET
-		#Validate length
-		SECRET="$(echo $SECRET | tr '[A-Z]' '[a-z]')"
-		if ! [[ $SECRET =~ ^[0-9a-f]{32}$ ]]; then
-			echo "$(tput setaf 1)Error:$(tput sgr 0) Enter hexadecimal characters and secret must be 32 characters."
-			exit 1
-		fi
-		;;
-	2)
-		SECRET="$(hexdump -vn "16" -e ' /1 "%02x"' /dev/urandom)"
-		echo "OK I created one: $SECRET"
-		;;
-	*)
-		echo "$(tput setaf 1)Invalid option$(tput sgr 0)"
-		exit 1
-		;;
-	esac
+# while true; do
+# 	echo "Now tell me a user name. Usernames are used to name secrets: "
+# 	USERNAME="MTSecret$COUNTER"
+# 	echo "Do you want to set secret manually or shall I create a random secret?"
+# 	echo "   1) Manually enter a secret"
+# 	echo "   2) Create a random secret"
+# 	OPTION="1"
+# 	case $OPTION in
+# 	1)
+# 		echo "S string filled by 0-9 and a-f(hexadecimal): "
+# 		while [[ "$#" -gt 0 ]]; do
+#             case $1 in
+#                 --s) SECRET="$2"; shift ;;
+#             esac
+#             shift
+#         done
+# 		echo $SECRET
+# 		#Validate length
+# 		SECRET="$(echo $SECRET | tr '[A-Z]' '[a-z]')"
+# 		if ! [[ $SECRET =~ ^[0-9a-f]{32}$ ]]; then
+# 			echo "$(tput setaf 1)Error:$(tput sgr 0) Enter hexadecimal characters and secret must be 32 characters."
+# 			exit 1
+# 		fi
+# 		;;
+# 	2)
+# 		SECRET="$(hexdump -vn "16" -e ' /1 "%02x"' /dev/urandom)"
+# 		echo "OK I created one: $SECRET"
+# 		;;
+# 	*)
+# 		echo "$(tput setaf 1)Invalid option$(tput sgr 0)"
+# 		exit 1
+# 		;;
+# 	esac
 	SECRET_END_ARY+=("$SECRET")
 	USERNAME_END_ARY+=("$USERNAME")
 	#Now add them to secrets
