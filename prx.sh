@@ -572,7 +572,7 @@ while true; do
 	OPTION="1"
 	case $OPTION in
 	1)
-		echo "Enter a 32 character string filled by 0-9 and a-f(hexadecimal): "
+		echo "S string filled by 0-9 and a-f(hexadecimal): "
 		while [[ "$#" -gt 0 ]]; do
             case $1 in
                 --s) SECRET="$2"; shift ;;
