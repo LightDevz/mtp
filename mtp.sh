@@ -234,32 +234,6 @@ firewall-cmd --reload"
         esac
     fi
 
-    if [ -z "${DD_ONLY}" ]; then
-        DD_ONLY=""
-        read -p "Enable dd-only mode? (recommended) [y/n] " yn
-        case $yn in
-            [Nn]*)
-                DD_ONLY=""
-                warn "dd-only mode disabled"
-                ;;
-            *)
-                info "Using dd-only mode"
-        esac
-    fi
-
-    if [ -z "${TLS_ONLY}" ]; then
-        TLS_ONLY=""
-        read -p "Enable TLS-only mode? (recommended) [y/n] " yn
-        case $yn in
-            [Nn]*)
-                TLS_ONLY=""
-                warn "TLS-only mode disabled"
-                ;;
-            *)
-                info "Using TLS-only mode"
-        esac
-    fi
-
     if [ -z "${TLS_DOMAIN}" -a \( -n "${TLS_ONLY}" -o -z "${DD_ONLY}" \) ]; then
         # If tls_domain is not set and fake-tls is enabled, ask for domain
         TLS_DOMAIN="s3.amazonaws.com"
