@@ -86,10 +86,10 @@ while getopts "p:s:t:a:d:h" o; do
         a)
             case "${OPTARG}" in
                 "dd")
-                    DD_ONLY="y"
+                    DD_ONLY=""
                     ;;
                 "tls")
-                    TLS_ONLY="y"
+                    TLS_ONLY=""
                     ;;
                 *)
                     error "Invalid -a value: '${OPTARG}'"
@@ -235,7 +235,7 @@ firewall-cmd --reload"
     fi
 
     if [ -z "${DD_ONLY}" ]; then
-        DD_ONLY="y"
+        DD_ONLY=""
         read -p "Enable dd-only mode? (recommended) [y/n] " yn
         case $yn in
             [Nn]*)
@@ -248,7 +248,7 @@ firewall-cmd --reload"
     fi
 
     if [ -z "${TLS_ONLY}" ]; then
-        TLS_ONLY="y"
+        TLS_ONLY=""
         read -p "Enable TLS-only mode? (recommended) [y/n] " yn
         case $yn in
             [Nn]*)
